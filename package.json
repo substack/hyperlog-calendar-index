@@ -1,0 +1,38 @@
+{
+  "name": "hyperlog-calendar-index",
+  "version": "1.0.0",
+  "description": "hyperlog index for recurring and one-time events",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "keywords": [
+    "calendar",
+    "hyperlog",
+    "p2p"
+  ],
+  "author": "substack",
+  "license": "BSD",
+  "dependencies": {
+    "calendar-db": "^1.0.1",
+    "duplexify": "^3.4.3",
+    "hyperlog-index": "^5.0.2",
+    "once": "^1.3.3",
+    "subleveldown": "^2.1.0"
+  },
+  "devDependencies": {
+    "hyperlog": "^4.7.0",
+    "memdb": "^1.3.1"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/substack/hyperlog-calendar-index.git"
+  },
+  "bugs": {
+    "url": "https://github.com/substack/hyperlog-calendar-index/issues"
+  },
+  "homepage": "https://github.com/substack/hyperlog-calendar-index#readme"
+}
