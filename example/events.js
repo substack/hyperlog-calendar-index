@@ -11,6 +11,7 @@ var cal = cali({
     return xtend(row, {
       type: 'put',
       time: row.value.time,
+      created: row.value.created,
       value: { title: row.value.title }
     })
   }
@@ -25,7 +26,8 @@ log.add(null, {
 })
 log.add(null, {
   title: 'cyberwizard institute',
-  time: 'every day at 12:00 starting jan 15 until feb 10'
+  time: 'every day at 12:00 starting jan 15 until feb 10',
+  created: '2015-12-25'
 })
 
 cal.query({
