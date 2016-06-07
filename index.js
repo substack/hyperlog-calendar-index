@@ -17,7 +17,7 @@ function Cal (opts) {
     db: sub(opts.db, DEX),
     map: function (row, next) {
       next = once(next)
-      var doc = opts.map(row)
+      var doc = map(row)
       if (!doc) return next()
       var time = doc.time
       var batch = []
