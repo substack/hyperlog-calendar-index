@@ -143,6 +143,8 @@ The `res` objects returned by `opts.map` should have:
 string is relative to
 * `res.value` - an additional value to associate with the event (default: `{}`)
 
+The default map function is `function (row) { return row.value }`.
+
 [1]: https://npmjs.com/package/hyperlog
 [2]: https://npmjs.com/package/level
 [3]: https://npmjs.com/package/parse-messy-schedule

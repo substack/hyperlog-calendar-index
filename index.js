@@ -11,7 +11,7 @@ module.exports = Cal
 function Cal (opts) {
   if (!(this instanceof Cal)) return new Cal(opts)
   var cal = this.cal = calendar(sub(opts.db, CAL))
-  var map = opts.map
+  var map = opts.map || function (row) { return row.value }
   this.dex = hindex({
     log: opts.log,
     db: sub(opts.db, DEX),
