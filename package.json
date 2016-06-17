@@ -1,6 +1,6 @@
 {
   "name": "hyperlog-calendar-index",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "hyperlog index for recurring and one-time events",
   "main": "index.js",
   "scripts": {
