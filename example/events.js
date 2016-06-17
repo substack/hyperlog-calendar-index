@@ -7,13 +7,13 @@ var log = hyperlog(memdb(), { valueEncoding: 'json' })
 var cal = cali({
   log: log,
   db: memdb(),
-  map: function (row) {
-    return xtend(row, {
+  map: function (row, next) {
+    next(null, xtend(row, {
       type: 'put',
       time: row.value.time,
       created: row.value.created,
       value: { title: row.value.title }
-    })
+    }))
   }
 })
 log.add(null, {

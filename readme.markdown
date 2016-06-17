@@ -14,13 +14,13 @@ var log = hyperlog(memdb(), { valueEncoding: 'json' })
 var cal = cali({
   log: log,
   db: memdb(),
-  map: function (row) {
-    return xtend(row, {
+  map: function (row, next) {
+    next(null, xtend(row, {
       type: 'put',
       time: row.value.time,
       created: row.value.created,
       value: { title: row.value.title }
-    })
+    }))
   }
 })
 log.add(null, {
@@ -132,16 +132,14 @@ var cali = require('hyperlog-calendar-index')
 
 * `opts.log` - a [hyperlog][1] to index
 * `opts.db` - a [leveldb][2] to use for index storage
-* `opts.map(row)` - a function that is called with each `row` in the hyperlog
-and returns a falsy value or a map object, described below.
+* `opts.map(row, next)` - a function that is called with each `row` in the hyperlog
+and should call `next(err, doc)` with a falsy value or a `doc` object:
 
-The `res` objects returned by `opts.map` should have:
-
-* `res.type` - `'put'` or `'del'` (default: 'put')
-* `res.time` - the [time string][3] of the event
-* `res.created` - the time (string or `Date` object) that the `res.time` time
+* `doc.type` - `'put'` or `'del'` (default: 'put')
+* `doc.time` - the [time string][3] of the event
+* `doc.created` - the time (string or `Date` object) that the `doc.time` time
 string is relative to
-* `res.value` - an additional value to associate with the event (default: `{}`)
+* `doc.value` - an additional value to associate with the event (default: `{}`)
 
 The default map function is `function (row) { return row.value }`.
 
