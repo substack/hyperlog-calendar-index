@@ -17,24 +17,26 @@ function Cal (opts) {
     db: sub(opts.db, DEX),
     map: function (row, next) {
       next = once(next)
-      var doc = map(row)
-      if (!doc) return next()
-      var time = doc.time
-      var batch = []
-      var pending = 1 + row.links.length
-      row.links.forEach(function (link) {
-        cal.get(link, function (err, ldoc) {
-          if (err) return next(err)
-          batch.push.apply(batch, cal.prepare(ldoc.time, {
-            type: 'del',
-            id: link,
-            created: ldoc.created
-          }).batch)
-          if (--pending === 0) done()
+      map(row, function (err, doc) {
+        if (err) return next(err)
+        if (!doc) return next()
+        var time = doc.time
+        var batch = []
+        var pending = 1 + row.links.length
+        row.links.forEach(function (link) {
+          cal.get(link, function (err, ldoc) {
+            if (err) return next(err)
+            batch.push.apply(batch, cal.prepare(ldoc.time, {
+              type: 'del',
+              id: link,
+              created: ldoc.created
+            }).batch)
+            if (--pending === 0) done(batch, doc)
+          })
         })
+        if (--pending === 0) done(batch, doc)
       })
-      if (--pending === 0) done()
-      function done () {
+      function done (batch, doc) {
         batch.push.apply(batch, cal.prepare(doc.time, {
           type: doc.type || 'put',
           id: row.key,
