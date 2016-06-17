@@ -39,8 +39,8 @@ test('del key', function (t) {
     log: log,
     db: memdb(),
     map: function (row, next) {
-      if (row.type === 'del') {
-        next(null, row)
+      if (row.value.type === 'del') {
+        next(null, row.value)
       } else next(null, xtend(row, {
         type: 'put',
         time: row.value.time,
