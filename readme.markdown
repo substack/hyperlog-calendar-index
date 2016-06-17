@@ -141,6 +141,9 @@ and should call `next(err, doc)` with a falsy value or a `doc` object:
 string is relative to
 * `doc.value` - an additional value to associate with the event (default: `{}`)
 
+Optionally, `doc.key` can be given in place of setting `doc.time` and the rest.
+This is useful for deleting records.
+
 The default map function is `function (row) { return row.value }`.
 
 [1]: https://npmjs.com/package/hyperlog
