@@ -36,7 +36,7 @@ function Cal (opts) {
       if (--pending === 0) done()
       function done () {
         batch.push.apply(batch, cal.prepare(doc.time, {
-          type: 'put',
+          type: doc.type || 'put',
           id: row.key,
           created: doc.created,
           value: doc.value
