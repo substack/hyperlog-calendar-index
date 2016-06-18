@@ -25,7 +25,8 @@ function Cal (opts) {
         else if (!doc) return next()
         else if (doc.time) ondoc(null, doc)
         else if (doc.key) self.log.get(doc.key, onget)
-        else next(new Error('no time or key specified in update'))
+        else if (doc.links) ondoc(null, doc)
+        else next(new Error('no time, key, or links specified in update'))
 
         function onget (err, row) {
           if (err) return next(err)
@@ -59,12 +60,14 @@ function Cal (opts) {
       }
 
       function done (batch, doc) {
-        batch.push.apply(batch, cal.prepare(doc.time, {
-          type: doc.type || 'put',
-          id: row.key,
-          created: doc.created,
-          value: doc.value
-        }).batch)
+        if (doc.time) {
+          batch.push.apply(batch, cal.prepare(doc.time, {
+            type: doc.type || 'put',
+            id: row.key,
+            created: doc.created,
+            value: doc.value
+          }).batch)
+        }
         cal.db.batch(batch, next)
       }
     }
