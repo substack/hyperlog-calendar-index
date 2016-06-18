@@ -141,8 +141,8 @@ and should call `next(err, doc)` with a falsy value or a `doc` object:
 string is relative to
 * `doc.value` - an additional value to associate with the event (default: `{}`)
 
-Optionally, `doc.key` can be given in place of setting `doc.time` and the rest.
-This is useful for deleting records.
+If you need to delete a record, all your map function needs to provide is a
+document with: `{ type: 'del' }`.
 
 The default map function is `function (row) { return row.value }`.
 

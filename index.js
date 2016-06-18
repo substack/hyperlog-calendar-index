@@ -25,8 +25,7 @@ function Cal (opts) {
         else if (!doc) return next()
         else if (doc.time) ondoc(null, doc)
         else if (doc.key) self.log.get(doc.key, onget)
-        else if (doc.links) ondoc(null, doc)
-        else next(new Error('no time, key, or links specified in update'))
+        else ondoc(null, doc)
 
         function onget (err, row) {
           if (err) return next(err)
