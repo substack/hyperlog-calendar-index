@@ -46,7 +46,8 @@ function Cal (opts) {
         var pending = 1 + row.links.length
         row.links.forEach(function (link) {
           cal.get(link, function (err, ldoc) {
-            if (err) return next(err)
+            if (err && err.notFound) return next()
+            else if (err) return next(err)
             batch.push.apply(batch, cal.prepare(ldoc.time, {
               type: 'del',
               id: link,
